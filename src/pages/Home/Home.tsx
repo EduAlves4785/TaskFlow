@@ -1,6 +1,7 @@
 import { Paper, Container, Stack, Button, Divider, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ListIcon from '@mui/icons-material/List';
+import TaskCard from '../../components/TaskCard/TaskCard';
 
 export default function Home() {
     return (
@@ -8,6 +9,24 @@ export default function Home() {
             minHeight: '80vh',
             my: 4,
         }}>
+            <TaskCard 
+                title="Tarefa de exemplo"
+                description="Esta é uma tarefa de exemplo para demonstração"
+                status="A fazer"
+                date={new Date()}
+            />
+            <TaskCard 
+                title="Tarefa em andamento"
+                description="Esta tarefa está em andamento"                 
+                status="Em andamento"
+                date={new Date()}
+            />
+            <TaskCard 
+                title="Tarefa concluída"
+                description="Esta tarefa foi concluída"                 
+                status="Concluído"
+                date={new Date()}
+            />
             <Paper elevation={3} sx={{
                 my:5,
                 mx: 5,

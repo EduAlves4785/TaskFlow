@@ -14,6 +14,15 @@ const theme = createTheme({
     }
   },
   components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          maxWidth: 300,
+          border:'2px solid black',
+          borderColor: '#7C3AED',
+        }
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
