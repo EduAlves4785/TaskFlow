@@ -1,1 +1,4 @@
-export type TaskStatus = 'A fazer' | 'Em andamento' | 'Concluído';
+export type TaskStatus =
+    | "TODO"
+    | "IN_PROGRESS"
+    | "DONE";

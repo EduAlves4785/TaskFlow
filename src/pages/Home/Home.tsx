@@ -2,35 +2,39 @@ import { Paper, Container, Stack, Button, Divider, Typography } from '@mui/mater
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ListIcon from '@mui/icons-material/List';
 import TaskCard from '../../components/TaskCard/TaskCard';
+import { useState } from 'react';
+import type { Task } from '../../components/TaskCard/TaskInterface';
 
 export default function Home() {
+
+    const[tasks, setTasks] = useState<Task[]>([
+        {
+            id: 1,
+            title: "Tarefa de exemplo",
+            description: "Esta é uma tarefa de exemplo para demonstração",
+            status: "TODO",
+            date: new Date()
+        },
+        {
+            id: 2,
+            title: "Tarefa em andamento",
+            description: "Esta tarefa está em andamento",
+            status: "IN_PROGRESS",
+            date: new Date()
+        }
+    ]);
+
     return (
-        <Container maxWidth="md" sx={{
+        <Container maxWidth="lg" sx={{
             minHeight: '80vh',
             my: 4,
+            justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
         }}>
-            <TaskCard 
-                title="Tarefa de exemplo"
-                description="Esta é uma tarefa de exemplo para demonstração"
-                status="A fazer"
-                date={new Date()}
-            />
-            <TaskCard 
-                title="Tarefa em andamento"
-                description="Esta tarefa está em andamento"                 
-                status="Em andamento"
-                date={new Date()}
-            />
-            <TaskCard 
-                title="Tarefa concluída"
-                description="Esta tarefa foi concluída"                 
-                status="Concluído"
-                date={new Date()}
-            />
             <Paper elevation={3} sx={{
-                my:5,
-                mx: 5,
-                p:3
+                p: 4,
             }}>
                 <Stack spacing={2} sx={{
                     alignItems: "center",
@@ -50,11 +54,11 @@ export default function Home() {
                         <Button fullWidth={true} startIcon={<AddCircleIcon />} >
                             Criar tarefa
                         </Button>
-                        <Button startIcon={<ListIcon />} variant='outlined'  sx={{
+                        <Button startIcon={<ListIcon />} variant='outlined' sx={{
                             boxShadow: 2
                         }}>Ver tarefas</Button>
                     </Stack>
-                    <Divider sx={{ width: "100%" }}/>
+                    <Divider sx={{ width: "100%" }} />
                     <Typography variant="h6">
                         Bem-vindo ao TaskFlow!
                     </Typography>
@@ -63,7 +67,23 @@ export default function Home() {
                     </Typography>
                 </Stack>
             </Paper>
-
+            <Paper elevation={0} sx={{
+                mt: 4,
+            }}>
+                <Stack direction="row" spacing={2} sx={{
+                    alignItems: "center",
+                }}>
+                    {tasks.map((task) => (
+                        <TaskCard
+                            id={task.id}
+                            title={task.title}
+                            description={task.description}
+                            status={task.status}
+                            date={task.date}
+                        />
+                    ))}
+                </Stack>
+            </Paper>
         </Container>
 
 
