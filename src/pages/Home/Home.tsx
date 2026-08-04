@@ -7,7 +7,7 @@ import type { Task } from '../../components/TaskCard/TaskInterface';
 
 export default function Home() {
 
-    const[tasks, setTasks] = useState<Task[]>([
+    const [tasks, setTasks] = useState<Task[]>([
         {
             id: 1,
             title: "Tarefa de exemplo",
@@ -20,9 +20,18 @@ export default function Home() {
             title: "Tarefa em andamento",
             description: "Esta tarefa está em andamento",
             status: "IN_PROGRESS",
-            date: new Date()
+            date: new Date(),
         }
     ]);
+
+    //Mudar status para DONE
+    function handleCompleteTask(taskId: number) {
+        setTasks((prevTasks) =>
+            prevTasks.map((task) =>
+                task.id === taskId ? { ...task, status: "DONE" } : task
+            )
+        );
+    }
 
     return (
         <Container maxWidth="lg" sx={{
@@ -75,11 +84,9 @@ export default function Home() {
                 }}>
                     {tasks.map((task) => (
                         <TaskCard
-                            id={task.id}
-                            title={task.title}
-                            description={task.description}
-                            status={task.status}
-                            date={task.date}
+                            key={task.id}
+                            {...task}
+                            onComplete={() => handleCompleteTask(task.id)}
                         />
                     ))}
                 </Stack>

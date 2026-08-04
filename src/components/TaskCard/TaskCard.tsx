@@ -5,7 +5,7 @@ import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
 import LoopIcon from '@mui/icons-material/Loop';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-export default function TaskCard({ id, title, description, status, date }: CardProps) {
+export default function TaskCard({ id, title, description, status, date, onComplete }: CardProps) {
 
     function renderChip(type:TaskStatus) {
         switch(type) {
@@ -45,7 +45,7 @@ export default function TaskCard({ id, title, description, status, date }: CardP
                     alignItems: "center",
                 }}>
                     <Button>Editar</Button>
-                    <Button variant="outlined">
+                    <Button disabled={status === "DONE"} onClick={onComplete} variant="outlined">
                         Concluir
                     </Button>
                 </Stack>

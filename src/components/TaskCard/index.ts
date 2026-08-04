@@ -1,9 +1,5 @@
-import type { TaskStatus } from './types';
+import type { Task } from './TaskInterface';
 
-export interface CardProps {
-    id:number;
-    title: string;
-    description: string;
-    status: TaskStatus;
-    date: Date;
+export interface CardProps extends Task {
+    onComplete: () => void;
 }
