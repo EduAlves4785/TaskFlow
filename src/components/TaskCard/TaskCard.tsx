@@ -2,27 +2,31 @@ import { Button, Card, CardContent, CardHeader, Chip, Divider, Stack, Typography
 import type { CardProps } from './index'
 import type { TaskStatus } from './types'
 import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
+import LoopIcon from '@mui/icons-material/Loop';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-export default function TaskCard({ title, description, status, date }: CardProps) {
+export default function TaskCard({ id, title, description, status, date, onComplete }: CardProps) {
 
     function renderChip(type:TaskStatus) {
         switch(type) {
-            case 'A fazer':
-                return <Chip avatar={<HistoryToggleOffIcon />} label="A fazer" color="default" />
-            case 'Em andamento':
-                return <Chip avatar={<AutorenewIcon/>} label="Em andamento" color="primary" />
-            case 'Concluído':
-                return <Chip avatar={<CheckCircleIcon/>} label="Concluído" color="success" />
+            case 'TODO':
+                return <Chip size='small' avatar={<HistoryToggleOffIcon />} label="A fazer" color="default" />
+            case 'IN_PROGRESS':
+                return <Chip size='small' avatar={<LoopIcon color="warning" />} label="Em andamento" color="warning" />
+            case 'DONE':
+                return <Chip size='small' avatar={<CheckCircleIcon/>} label="Concluído" color="success" />
         }
     }
 
     return (
-        <Card>
+        <Card sx={{
+            width: 350,
+            height: 250,
+        }}>
             <CardHeader title={title} />
             <CardContent>
                 <Typography sx={{
+                    height: 50,
                     mb:2
                 }}>
                     {description}
@@ -32,7 +36,7 @@ export default function TaskCard({ title, description, status, date }: CardProps
                     alignItems: "center",
                 }}>
                     {renderChip(status)}
-                    <Typography>Date: {date.toLocaleDateString()}</Typography>
+                    <Typography>Data: {date.toLocaleDateString()}</Typography>
                 </Stack>
                 <Divider sx={{ mt: 2 }} />
                 <Stack direction="row" spacing={2} sx={{
@@ -41,7 +45,7 @@ export default function TaskCard({ title, description, status, date }: CardProps
                     alignItems: "center",
                 }}>
                     <Button>Editar</Button>
-                    <Button variant="outlined">
+                    <Button disabled={status === "DONE"} onClick={onComplete} variant="outlined">
                         Concluir
                     </Button>
                 </Stack>
