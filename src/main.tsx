@@ -4,11 +4,13 @@ import './index.css'
 import App from './App.tsx'
 import theme from './theme/index.ts'
 import { ThemeProvider } from '@mui/material/styles'
+import { RouterProvider } from 'react-router-dom';  
+import  router  from './routes/index.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <ThemeProvider theme={theme}>
     <StrictMode>
-      <App />
+      <RouterProvider router={router} />
     </StrictMode> 
   </ThemeProvider>
 )

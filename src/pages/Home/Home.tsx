@@ -4,30 +4,11 @@ import ListIcon from '@mui/icons-material/List';
 import TaskCard from '../../components/TaskCard/TaskCard';
 import { useState } from 'react';
 import type { Task } from '../../components/TaskCard/TaskInterface';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
+import CreateTaskDialog from '../../components/CreateTaskDialog/CreateTaskDialog';
 
 export default function Home() {
 
-    const [tasks, setTasks] = useState<Task[]>([
-        {
-            id: 1,
-            title: "Tarefa de exemplo",
-            description: "Esta é uma tarefa de exemplo para demonstração",
-            status: "TODO",
-            date: new Date()
-        },
-        {
-            id: 2,
-            title: "Tarefa em andamento",
-            description: "Esta tarefa está em andamento",
-            status: "IN_PROGRESS",
-            date: new Date(),
-        }
-    ]);
+    const [tasks, setTasks] = useState<Task[]>([]);
 
     //Mudar status para DONE
     function handleCompleteTask(taskId: number) {
@@ -48,10 +29,7 @@ export default function Home() {
         setOpen(false);
     };
 
-    const[title, setTitle] = useState('');
-    const[description, setDescription] = useState('');
-
-    function handleCreateTask() {
+    function handleCreateTask(title: string, description: string) {
         const newTask: Task = {
             id: tasks.length + 1,
             title: title,   
@@ -60,8 +38,6 @@ export default function Home() {
             date: new Date(),
         };
         setTasks(prev => [...prev, newTask]);
-        setTitle('');
-        setDescription('');
         setOpen(false);
     }
 
@@ -132,44 +108,11 @@ export default function Home() {
                     ))}
                 </Stack>
             </Paper>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Criar tarefa</DialogTitle>
-                <DialogContent>
-                    <form id="task-form">
-                        <TextField
-                            autoFocus
-                            required
-                            margin="dense"
-                            id="titulo"
-                            name="titulo"
-                            label="Título"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
-                        <TextField
-                            required
-                            margin="dense"
-                            id="descricao"
-                            name="descricao"
-                            label="Descrição"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                    </form>
-                </DialogContent>
-                <DialogActions>
-                    <Button variant='outlined' onClick={handleClose}>Cancelar</Button>
-                    <Button type="submit" form="task-form" onClick={handleCreateTask}>
-                        Criar
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            <CreateTaskDialog 
+                open={open}
+                onClose={handleClose}
+                onCreate={handleCreateTask}
+            />
         </Container>
 
 
